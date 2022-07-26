@@ -2,30 +2,49 @@
 
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
+// use
+// namespace
 
-Route::get('/', function () {
-    return view('welcome');
+// Route::get('url', 'Action');
+// Route::post('url', 'Action');
+// Route::patch('url', 'Action');
+// Route::put('url', 'Action');
+// Route::delete('url', 'Action');
+
+// .
+// =>
+// ::
+// ->
+
+Route::get('/', function() {
+    return 'Homepage';
 });
 
-Route::get('new', function() {
-    return 'dddd';
+Route::post('news', function() {
+    return 'News Page';
 });
 
-
-Route::get('new', function() {
-    return 'dddd';
+Route::get('news', function() {
+    return 'News Page';
 });
 
-Route::get('new', function() {
-    return 'dddd';
+Route::put('news', function() {
+    return 'News Page';
 });
+
+Route::delete('news', function() {
+    return 'News Page';
+});
+
+// Route::get('/', function() {
+//     return view('welcome');
+// });
+
+// Route::view('/', 'welcome');
+// Route::any('test', function() {
+//     return 'Test';
+// });
+
+// Route::match(['post', 'delete', 'get'], 'newnew', function() {
+//     return 'ddddd';
+// });
