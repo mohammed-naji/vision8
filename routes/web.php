@@ -20,3 +20,12 @@ Route::get('/', function () {
 Route::get('new', function() {
     return 'dddd';
 });
+
+
+Route::get('new', function() {
+    return 'dddd';
+});
+
+Route::get('new', function() {
+    return 'dddd';
+});
