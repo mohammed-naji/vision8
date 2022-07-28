@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\SiteController;
 
 // use
 // namespace
@@ -16,25 +17,18 @@ use Illuminate\Support\Facades\Route;
 // ::
 // ->
 
-Route::get('/', function() {
-    return 'Homepage';
-});
+// Route::get('/', function() {
+//     return 'Homepage';
+// });
 
-Route::post('news', function() {
-    return 'News Page';
-});
+// Route::post('news', function() {
+//     return 'News Page';
+// });
 
-Route::get('news', function() {
-    return 'News Page';
-});
+// Route::get('about-us', function() {
+//     return 'About Us Page';
+// });
 
-Route::put('news', function() {
-    return 'News Page';
-});
-
-Route::delete('news', function() {
-    return 'News Page';
-});
 
 // Route::get('/', function() {
 //     return view('welcome');
@@ -48,3 +42,30 @@ Route::delete('news', function() {
 // Route::match(['post', 'delete', 'get'], 'newnew', function() {
 //     return 'ddddd';
 // });
+
+Route::get('/user/{name}/{age}', function($name, $age) {
+    return 'Welcome ' . $name . ', your age is ' . $age;
+})->whereAlpha('name')->whereNumber('age');
+
+
+// Route::get('news', function() {
+//     return 'News';
+// });
+
+// Route::get('news/{id?}', function($id = null) {
+//     return 'News ' . $id;
+// });
+
+// Route::get('/', function() {
+//     $post = 10;
+//     $comment = 20;
+//     // $url = url('/user/posts/'.$post.'/comments/'.$comment.'/show');
+//     $url = route('userinfo', [$post, $comment]);
+//     return 'To show the comment of user post please go to this url ' .$url ;
+// });
+
+// Route::get('/user/{postid}/mycomments/{commentid}/show', function($postid, $commentid) {
+//     return "User Post $postid Comment $commentid";
+// })->name('userinfo');
+
+Route::get('/', [SiteController::class, 'index'])->name('home');
