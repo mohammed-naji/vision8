@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\Formscontroller;
+use App\Http\Controllers\MailController;
 use App\Http\Controllers\Site1Controller;
 use App\Http\Controllers\Site2Controller;
 use App\Http\Controllers\Site3Controller;
@@ -134,3 +135,9 @@ Route::post('form4', [Formscontroller::class, 'form4_data'])->name('form4_data')
 
 Route::get('form5', [Formscontroller::class, 'form5'])->name('form5');
 Route::post('form5', [Formscontroller::class, 'form5_data'])->name('form5_data');
+
+Route::get('send-mail', [MailController::class, 'send']);
+
+Route::get('contact-us', [MailController::class, 'contact_us']);
+Route::post('contact-us', [MailController::class, 'contact_us_data'])->name('contact_us');
+
