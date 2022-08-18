@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\Formscontroller;
 use App\Http\Controllers\MailController;
+use App\Http\Controllers\PostController;
 use App\Http\Controllers\Site1Controller;
 use App\Http\Controllers\Site2Controller;
 use App\Http\Controllers\Site3Controller;
@@ -141,3 +142,6 @@ Route::get('send-mail', [MailController::class, 'send']);
 Route::get('contact-us', [MailController::class, 'contact_us']);
 Route::post('contact-us', [MailController::class, 'contact_us_data'])->name('contact_us');
 
+
+Route::get('posts', [PostController::class, 'index'])->name('posts.index');
+Route::get('posts/{id}', [PostController::class, 'show'])->name('posts.show');
