@@ -143,5 +143,22 @@ Route::get('contact-us', [MailController::class, 'contact_us']);
 Route::post('contact-us', [MailController::class, 'contact_us_data'])->name('contact_us');
 
 
+
+
+
+
+
+Route::get('posts/trash', [PostController::class, 'trash'])->name('posts.trash');
+
+Route::get('posts/{id}/restore', [PostController::class, 'restore'])->name('posts.restore');
+
+Route::get('posts/{id}/forcedelete', [PostController::class, 'forcedelete'])->name('posts.forcedelete');
+
+Route::get('posts/restore-all', [PostController::class, 'restore_all'])->name('posts.restore_all');
+
+Route::get('posts/delete-all', [PostController::class, 'delete_all'])->name('posts.delete_all');
+
 Route::get('posts', [PostController::class, 'index'])->name('posts.index');
 Route::get('posts/{id}', [PostController::class, 'show'])->name('posts.show');
+
+Route::delete('posts/{id}', [PostController::class, 'destroy'])->name('posts.destroy');

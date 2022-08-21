@@ -15,6 +15,20 @@
         <i class="far fa-heart"></i>
         <i class="fab fa-facebook"></i> --}}
 
+        @if (session('msg'))
+        <script>
+            Swal.fire(
+            'Good job!',
+            'You clicked the button!',
+            'success'
+            )
+        </script>
+        {{-- <div class="alert alert-success">
+            {{ session('msg') }}
+        </div> --}}
+        @endif
+
+
         <form action="{{ route('posts.index') }}" method="get">
             <div class="input-group mb-3">
                 <input type="text" class="form-control" placeholder="Search here.." name="search" value="{{ request()->search }}">
@@ -43,7 +57,13 @@
                 <td>
                     <a href="{{ route('posts.show', $post->id) }}" class="btn btn-sm btn-success"><i class="fas fa-eye"></i></a>
                     <a href="#" class="btn btn-sm btn-primary"><i class="fas fa-edit"></i></a>
-                    <a href="#" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></a>
+                    {{-- <a href="{{ route('posts.destroy', $post->id) }}" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></a> --}}
+                    <button class="btn btn-sm btn-danger btn-delete"><i class="fas fa-trash"></i></button>
+                    <form class="d-inline" action="{{ route('posts.destroy', $post->id) }}" method="post">
+                        @csrf
+                        @method('delete')
+                        {{-- <button onclick="return confirm('Are you sure اخوي ؟')" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button> --}}
+                    </form>
                 </td>
             </tr>
             @endforeach
@@ -54,5 +74,40 @@
         {{ $posts->appends($_GET)->links() }}
     </div>
 
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    @if (session('msg'))
+    <script>
+        Swal.fire(
+        'Good job!',
+        '{{ session("msg") }}',
+        'success'
+        )
+    </script>
+    @endif
+
+    <script>
+
+        $('.btn-delete').on('click', function() {
+            let form = $(this).next('form');
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    form.submit();
+                }
+            })
+        })
+
+
+    </script>
   </body>
 </html>

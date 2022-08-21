@@ -30,6 +30,25 @@ class PostController extends Controller
         return view('posts.index', compact('posts'));
     }
 
+    public function trash()
+    {
+        $posts = Post::onlyTrashed()->orderByDesc('id')->get();
+
+        return view('posts.trash', compact('posts'));
+    }
+
+    public function restore($id)
+    {
+        Post::onlyTrashed()->find($id)->restore();
+        return redirect()->back();
+    }
+
+    public function forcedelete($id)
+    {
+        Post::onlyTrashed()->find($id)->forceDelete();
+        return redirect()->back();
+    }
+
     public function show($id)
     {
         // $post = Post::findOrFail($id);
@@ -38,5 +57,24 @@ class PostController extends Controller
             return redirect()->route('posts.index');
         }
         dd($post->title);
+    }
+
+    public function destroy($id)
+    {
+        Post::destroy($id);
+        return redirect()->route('posts.index')->with('msg', 'Post deleted successfully');
+        // return redirect()->back();
+    }
+
+    public function restore_all()
+    {
+        Post::onlyTrashed()->restore();
+        return redirect()->back();
+    }
+
+    public function delete_all()
+    {
+        Post::onlyTrashed()->forceDelete();
+        return redirect()->back();
     }
 }
