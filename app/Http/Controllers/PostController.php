@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Validator;
 
 class PostController extends Controller
 {
@@ -76,5 +78,98 @@ class PostController extends Controller
     {
         Post::onlyTrashed()->forceDelete();
         return redirect()->back();
+    }
+
+    public function create()
+    {
+        $post = new Post();
+        return view('posts.create', compact('post'));
+    }
+
+    public function store(Request $request)
+    {
+        // dd($request->all());
+        // Validation
+        $request->validate([
+            'title' => 'required',
+            'image' => 'required|image|mimes:png,jpg,jpeg,svg',
+            'content' => 'required'
+        ]);
+
+        // $dd = Validator::make($request->all(), [
+        //     'title' => 'required',
+        //     'image' => 'required|image|mimes:png,jpg,jpeg,svg',
+        //     'content' => 'required'
+        // ]);
+
+        // if($dd->fails()) {
+        //     return 'Errrrrrrrrror';
+        // }
+
+        // dd($request->all());
+
+
+
+        // 1. Request Validation
+        // 2. Validator Class
+        // 3. Request Form File
+
+        // Uploads Files
+        $img = $request->file('image');
+        $img_name = time().rand().$img->getClientOriginalName();
+        $img->move(public_path('uploads/posts'), $img_name);
+
+        // Store data to database
+        Post::create([
+            'title' => $request->title,
+            'image' => $img_name,
+            'content' => $request->content
+        ]);
+
+        // $post = new Post();
+        // $post->title = $request->title;
+        // $post->image = $img_name;
+        // $post->content = $request->content;
+        // $post->save();
+
+        // Redirect the user
+        return redirect()->route('posts.index')->with('msg', 'Post created successfully');
+    }
+
+    public function edit($id)
+    {
+        $post = Post::find($id);
+        return view('posts.edit', compact('post'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'title' => 'required',
+            'image' => 'nullable|image|mimes:png,jpg,jpeg,svg',
+            'content' => 'required'
+        ]);
+
+        $post = Post::find($id);
+        $img_name = $post->image;
+        // Uploads Files
+        if($request->hasFile('image')) {
+
+            File::delete(public_path('uploads/posts/'.$img_name));
+
+            $img = $request->file('image');
+            $img_name = time().rand().$img->getClientOriginalName();
+            $img->move(public_path('uploads/posts'), $img_name);
+        }
+
+        // Store data to database
+        $post->update([
+            'title' => $request->title,
+            'image' => $img_name,
+            'content' => $request->content
+        ]);
+
+        // Redirect the user
+        return redirect()->route('posts.index')->with('msg', 'Post created successfully');
     }
 }

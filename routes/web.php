@@ -5,6 +5,7 @@ use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\Formscontroller;
 use App\Http\Controllers\MailController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\Site1Controller;
 use App\Http\Controllers\Site2Controller;
 use App\Http\Controllers\Site3Controller;
@@ -14,6 +15,9 @@ use Illuminate\Support\Facades\Route;
 
 // use
 // namespace
+
+// $route = new Route();
+// $route->get();
 
 // Route::get('url', 'Action');
 // Route::post('url', 'Action');
@@ -158,7 +162,19 @@ Route::get('posts/restore-all', [PostController::class, 'restore_all'])->name('p
 
 Route::get('posts/delete-all', [PostController::class, 'delete_all'])->name('posts.delete_all');
 
-Route::get('posts', [PostController::class, 'index'])->name('posts.index');
-Route::get('posts/{id}', [PostController::class, 'show'])->name('posts.show');
 
-Route::delete('posts/{id}', [PostController::class, 'destroy'])->name('posts.destroy');
+// Route::get('posts/create', [PostController::class, 'create'])->name('posts.create');
+// Route::post('posts/store', [PostController::class, 'store'])->name('posts.store');
+
+// Route::get('posts', [PostController::class, 'index'])->name('posts.index');
+// Route::get('posts/{id}', [PostController::class, 'show'])->name('posts.show');
+
+// Route::delete('posts/{id}', [PostController::class, 'destroy'])->name('posts.destroy');
+
+// Route::get('posts/{id}/edit', [PostController::class, 'edit'])->name('posts.edit');
+// Route::put('posts/{id}/update', [PostController::class, 'update'])->name('posts.update');
+
+Route::resource('posts', PostController::class);
+
+Route::resource('products', ProductController::class);
+

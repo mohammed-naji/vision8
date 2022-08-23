@@ -6,11 +6,20 @@
     <title>Posts</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css">
+    <style>
+        .table th,
+        .table td {
+            vertical-align: middle
+        }
+    </style>
   </head>
   <body>
 
     <div class="container mt-5">
-        <h1>All Posts</h1>
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1>All Posts</h1>
+            <a class="btn btn-primary px-5" href="{{ route('posts.create') }}">Create New Post</a>
+        </div>
         {{-- <i class="fas fa-heart"></i>
         <i class="far fa-heart"></i>
         <i class="fab fa-facebook"></i> --}}
@@ -51,12 +60,12 @@
                 <td>{{ $post->id }}</td>
                 <td>{{ $post->title }}</td>
                 {{-- <td>{{ Str::words($post->content, 10, '...') }}</td> --}}
-                <td><img width="80" src="{{ $post->image }}" alt=""></td>
+                <td><img width="80" src="{{ asset('uploads/posts/'.$post->image) }}" alt=""></td>
                 <td>{{ $post->created_at->format('M d, Y') }}</td>
                 <td>{{ $post->updated_at->diffForHumans() }}</td>
                 <td>
                     <a href="{{ route('posts.show', $post->id) }}" class="btn btn-sm btn-success"><i class="fas fa-eye"></i></a>
-                    <a href="#" class="btn btn-sm btn-primary"><i class="fas fa-edit"></i></a>
+                    <a href="{{ route('posts.edit', $post->id) }}" class="btn btn-sm btn-primary"><i class="fas fa-edit"></i></a>
                     {{-- <a href="{{ route('posts.destroy', $post->id) }}" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></a> --}}
                     <button class="btn btn-sm btn-danger btn-delete"><i class="fas fa-trash"></i></button>
                     <form class="d-inline" action="{{ route('posts.destroy', $post->id) }}" method="post">
