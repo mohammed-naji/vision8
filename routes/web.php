@@ -6,6 +6,7 @@ use App\Http\Controllers\Formscontroller;
 use App\Http\Controllers\MailController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\RealtionController;
 use App\Http\Controllers\Site1Controller;
 use App\Http\Controllers\Site2Controller;
 use App\Http\Controllers\Site3Controller;
@@ -178,3 +179,6 @@ Route::resource('posts', PostController::class);
 
 Route::resource('products', ProductController::class);
 
+
+// Realtionship routes
+Route::get('one-to-one', [RealtionController::class, 'one_to_one']);
