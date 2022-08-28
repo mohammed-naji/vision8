@@ -182,3 +182,10 @@ Route::resource('products', ProductController::class);
 
 // Realtionship routes
 Route::get('one-to-one', [RealtionController::class, 'one_to_one']);
+
+Route::get('my-posts/{id}', [RealtionController::class, 'one_to_many'])->name('mypost');
+Route::post('one-to-many', [RealtionController::class, 'one_to_many_data'])->name('one_to_many_data');
+
+
+Route::get('many-to-many', [RealtionController::class, 'many_to_many']);
+Route::post('many-to-many', [RealtionController::class, 'many_to_many_data'])->name('many_to_many_data');
